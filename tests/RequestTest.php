@@ -119,6 +119,8 @@ class RequestTest extends Unit
      */
     public function testWithInvalidMethod()
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\InvalidMethodException::class);
+
         $request = $this->requestFactory(['method' => 'POST']);
         $request->withMethod('FOO');
     }
@@ -175,6 +177,8 @@ class RequestTest extends Unit
      */
     public function testInvalidMethodConstructor()
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\InvalidMethodException::class);
+
         $this->requestFactory(['method' => 'foo']);
     }
 

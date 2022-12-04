@@ -163,6 +163,8 @@ class UploadedFileTest extends Unit
      */
     public function testMovedStream()
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\UploadedFileException::class);
+
         $file = $this->uploadedFileFactory(['file_content' => '']);
 
         $targetName = uniqid('uploadedFileTest');
@@ -179,6 +181,8 @@ class UploadedFileTest extends Unit
      */
     public function testMoveErroredFileTo()
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\UploadedFileException::class);
+
         $file = $this->uploadedFileFactory(['file_content' => '12345678', 'error' => UPLOAD_ERR_CANT_WRITE]);
 
         $targetName = uniqid('uploadedFileTest');

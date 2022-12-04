@@ -1,5 +1,5 @@
 {
-    "name": "sebastianthiel/HTTP",
+    "name": "sebastianthiel/http",
     "description": "a PSR-7 HTTP implementation",
     "keywords": ["php", "http", "PSR-7", "PSR-17"],
     "type": "library",
@@ -22,7 +22,7 @@
         }
     },
     "require-dev": {
-        "codeception/codeception": "^2.3",
+        "codeception/codeception": "^4.2",
         "php-coveralls/php-coveralls": "^2.0"
    }
 }

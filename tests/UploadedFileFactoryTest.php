@@ -53,6 +53,8 @@ class UploadedFileFactoryTest extends Unit
      */
     public function testCreateUploadedFileInvalid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $factory = new UploadedFileFactory(new StreamFactory());
         $factory->createUploadedFile(null, 42, UPLOAD_ERR_PARTIAL, 'foo.txt', 'text/plain');
     }
