@@ -58,7 +58,6 @@ class MessageTest extends Unit
     public function testWithProtocolVersion()
     {
         $message = $this->messageFactory()->withProtocolVersion('2.0');
-        $this->assertAttributeEquals('2.0', 'protocolVersion', $message);
         $this->assertEquals('2.0', $message->getProtocolVersion());
     }
 

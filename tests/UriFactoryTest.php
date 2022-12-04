@@ -41,6 +41,8 @@ class UriFactoryTest extends Unit
      */
     public function testCreateInvalidUri()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         (new UriFactory())->createUri('///');
     }
 }

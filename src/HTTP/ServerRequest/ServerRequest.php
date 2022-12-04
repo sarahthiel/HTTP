@@ -54,7 +54,12 @@ class ServerRequest extends Request implements ServerRequestInterface
     ) {
         parent::__construct($method, $uri, $body, $headers, $version);
         $this->serverParams = $serverParams;
-        $this->queryParams = (!$queryParams) ? parse_str($this->getUri()->getQuery()) : $queryParams;
+
+        if (!$queryParams){
+            parse_str($this->getUri()->getQuery(), $this->queryParams);
+        } else {
+            $this->queryParams = $queryParams;
+        }
         $this->cookieParams = $cookieParams;
         $this->uploadedFiles = $uploadedFiles;
         $this->attributes = $attributes;

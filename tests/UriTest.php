@@ -68,9 +68,7 @@ class UriTest extends Unit
      */
     public function testWithScheme()
     {
-        $uri = $this->uriFactory(['scheme' => 'http'])->withScheme('https');
-
-        $this->assertAttributeEquals('https', 'scheme', $uri);
+        $this->assertEquals('https', $this->uriFactory(['scheme' => 'http'])->withScheme('https')->getScheme());
     }
 
     /**
@@ -78,9 +76,7 @@ class UriTest extends Unit
      */
     public function testWithSchemeRemovesSuffix()
     {
-        $uri = $this->uriFactory(['scheme' => 'http'])->withScheme('file://');
-
-        $this->assertAttributeEquals('file', 'scheme', $uri);
+        $this->assertEquals('file', $this->uriFactory(['scheme' => 'http'])->withScheme('file://')->getScheme());
     }
 
     /**
@@ -88,9 +84,7 @@ class UriTest extends Unit
      */
     public function testWithSchemeEmpty()
     {
-        $uri = $this->uriFactory(['scheme' => 'http'])->withScheme('');
-
-        $this->assertAttributeEquals('', 'scheme', $uri);
+        $this->assertEquals('', $this->uriFactory(['scheme' => 'http'])->withScheme('')->getScheme());
     }
 
     /**
@@ -115,6 +109,8 @@ class UriTest extends Unit
      */
     public function testWithInvalidScheme($scheme)
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\UriInvalidArgumentException::class);
+
         $this->uriFactory()->withScheme($scheme);
     }
 
@@ -141,7 +137,7 @@ class UriTest extends Unit
     {
         $uri = $this->uriFactory()->withScheme($scheme);
 
-        $this->assertAttributeEquals($scheme, 'scheme', $uri);
+        $this->assertEquals($scheme, $uri->getScheme());
     }
 
     /**
@@ -290,8 +286,7 @@ class UriTest extends Unit
     {
         $uri = $this->uriFactory(['user' => 'alice', 'password' => 'secret'])->withUserInfo('bob', 'password');
 
-        $this->assertAttributeEquals('bob', 'user', $uri);
-        $this->assertAttributeEquals('password', 'password', $uri);
+        $this->assertEquals('bob:password', $uri->getUserInfo());
     }
 
     /**
@@ -299,6 +294,8 @@ class UriTest extends Unit
      */
     public function testInvalidUser()
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\UriInvalidArgumentException::class);
+
         $this->uriFactory()->withUserInfo(false);
     }
 
@@ -307,6 +304,8 @@ class UriTest extends Unit
      */
     public function testInvalidPassword()
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\UriInvalidArgumentException::class);
+
         $this->uriFactory()->withUserInfo('alice', false);
     }
 
@@ -344,7 +343,7 @@ class UriTest extends Unit
     {
         $uri = $this->uriFactory(['host' => ''])->withHost($values['host']);
 
-        $this->assertAttributeEquals($expected, 'host', $uri);
+        $this->assertEquals($expected, $uri->getHost());
     }
 
     /**
@@ -352,6 +351,8 @@ class UriTest extends Unit
      */
     public function testInvalidHost()
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\UriInvalidArgumentException::class);
+
         $this->uriFactory()->withHost(false);
     }
 
@@ -387,10 +388,10 @@ class UriTest extends Unit
     public function testWithPort()
     {
         $uri = $this->uriFactory(['scheme' => 'file', 'port' => null])->withPort(8080);
-        $this->assertAttributeEquals(8080, 'port', $uri);
+        $this->assertEquals(8080, $uri->getPort());
 
         $uri = $this->uriFactory(['scheme' => 'file', 'port' => null])->withPort(null);
-        $this->assertAttributeEquals(null, 'port', $uri);
+        $this->assertEquals(null, $uri->getPort());
     }
 
     /**
@@ -414,6 +415,8 @@ class UriTest extends Unit
      */
     public function testInvalidPort($port)
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\UriInvalidArgumentException::class);
+
         $this->uriFactory()->withPort($port);
     }
 
@@ -451,8 +454,7 @@ class UriTest extends Unit
     public function testWithPath($values, $expected)
     {
         $uri = $this->uriFactory(['path' => '.'])->withPath($values['path']);
-
-        $this->assertAttributeEquals($expected['external'], 'path', $uri);
+        $this->assertEquals($expected['external'], $uri->getPath());
     }
 
     /**
@@ -460,6 +462,8 @@ class UriTest extends Unit
      */
     public function testInvalidPath()
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\UriInvalidArgumentException::class);
+
         $this->uriFactory()->withPath(false);
     }
 
@@ -501,7 +505,7 @@ class UriTest extends Unit
     {
         $uri = $this->uriFactory(['query' => ''])->withQuery($values['query']);
 
-        $this->assertAttributeEquals($expected, 'query', $uri);
+        $this->assertEquals($expected, $uri->getQuery());
     }
 
     /**
@@ -509,6 +513,8 @@ class UriTest extends Unit
      */
     public function testInvalidQuery()
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\UriInvalidArgumentException::class);
+
         $this->uriFactory()->withQuery(false);
     }
 
@@ -546,7 +552,7 @@ class UriTest extends Unit
     {
         $uri = $this->uriFactory(['fragment' => ''])->withFragment($values['fragment']);
 
-        $this->assertAttributeEquals($expected, 'fragment', $uri);
+        $this->assertEquals($expected, $uri->getFragment());
     }
 
     /**
@@ -589,6 +595,8 @@ class UriTest extends Unit
      */
     public function testInvalidFragment()
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\UriInvalidArgumentException::class);
+
         $this->uriFactory()->withFragment(false);
     }
 

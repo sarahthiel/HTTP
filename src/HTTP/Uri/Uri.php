@@ -223,7 +223,7 @@ class Uri implements UriInterface
      */
     protected function filterScheme($scheme) : string
     {
-        if (!is_string($scheme) && !method_exists($scheme, '__toString')) {
+        if (!(is_string($scheme) || (is_object($scheme) && method_exists($scheme, '__toString')))) {        
             throw new UriInvalidArgumentException('Scheme must be a string');
         }
 
@@ -264,7 +264,7 @@ class Uri implements UriInterface
      */
     protected function filterUser($user) : string
     {
-        if (!is_string($user) && !method_exists($user, '__toString')) {
+        if (!(is_string($user) || (is_object($user) && method_exists($user, '__toString')))) {
             throw new UriInvalidArgumentException('User must be a string');
         }
 
@@ -281,7 +281,7 @@ class Uri implements UriInterface
      */
     protected function filterPassword($password) : string
     {
-        if (!is_string($password) && !method_exists($password, '__toString')) {
+        if (!(is_string($password) || (is_object($password) && method_exists($password, '__toString')))) {
             throw new UriInvalidArgumentException('Password must be a string');
         }
 
@@ -315,7 +315,7 @@ class Uri implements UriInterface
      */
     protected function filterHost($host) : string
     {
-        if (!is_string($host) && !method_exists($host, '__toString')) {
+        if (!(is_string($host) || (is_object($host) && method_exists($host, '__toString')))) {
             throw new UriInvalidArgumentException('Host must be a string');
         }
 
@@ -394,7 +394,7 @@ class Uri implements UriInterface
      */
     protected function filterPath($path) : string
     {
-        if (!is_string($path) && !method_exists($path, '__toString')) {
+        if (!(is_string($path) || (is_object($path) && method_exists($path, '__toString')))) {        
             throw new UriInvalidArgumentException('Path must be a string');
         }
         $path = empty($path) ? '/' : $path;
@@ -435,7 +435,7 @@ class Uri implements UriInterface
      */
     protected function filterQuery($query)
     {
-        if (!is_string($query) && !method_exists($query, '__toString')) {
+        if (!(is_string($query) || (is_object($query) && method_exists($query, '__toString')))) {        
             throw new UriInvalidArgumentException('Query must be a string');
         }
 
@@ -477,7 +477,7 @@ class Uri implements UriInterface
      */
     protected function filterFragment($fragment)
     {
-        if (!is_string($fragment) && !method_exists($fragment, '__toString')) {
+        if (!(is_string($fragment) || (is_object($fragment) && method_exists($fragment, '__toString')))) {        
             throw new UriInvalidArgumentException('Fragment must be a string');
         }
         $fragment = ltrim($fragment, '#');

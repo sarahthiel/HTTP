@@ -57,7 +57,7 @@ class ResponseTest extends Unit
     {
         $response = $this->responseFactory()->withStatus(404);
 
-        $this->assertAttributeEquals(404, 'status', $response);
+        $this->assertEquals(404, $response->getStatusCode());
     }
 
     /**
@@ -65,6 +65,8 @@ class ResponseTest extends Unit
      */
     public function testInvalidStatus()
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\ResponseException::class);
+
         $this->responseFactory()->withStatus(600);
     }
 

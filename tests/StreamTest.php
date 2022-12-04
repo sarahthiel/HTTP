@@ -162,6 +162,7 @@ class StreamTest extends Unit
      */
     public function testInvalidConstruction()
     {
+        $this->expectException(\sebastianthiel\HTTP\Exception\StreamException::class);
         new Stream(null);
     }
 
@@ -170,10 +171,12 @@ class StreamTest extends Unit
      */
     public function testTellException()
     {
-        $stream = $this->streamFactory();
-        $stream->detach();
+        $this->expectException(\sebastianthiel\HTTP\Exception\StreamException::class);
 
-        $stream->tell();
+                $stream = $this->streamFactory();
+                $stream->detach();
+        
+                $stream->tell();
     }
 
     /**
@@ -181,10 +184,11 @@ class StreamTest extends Unit
      */
     public function testSeekException()
     {
-        $stream = $this->streamFactory();
-        $stream->detach();
-
-        $stream->seek(0);
+        $this->expectException(\sebastianthiel\HTTP\Exception\StreamException::class);
+                $stream = $this->streamFactory();
+                $stream->detach();
+        
+                $stream->seek(0);
     }
 
     /**
@@ -192,10 +196,11 @@ class StreamTest extends Unit
      */
     public function testRewindException()
     {
-        $stream = $this->streamFactory();
-        $stream->detach();
-
-        $stream->rewind();
+        $this->expectException(\sebastianthiel\HTTP\Exception\StreamException::class);
+                $stream = $this->streamFactory();
+                $stream->detach();
+        
+                $stream->rewind();
     }
 
     /**
@@ -203,10 +208,11 @@ class StreamTest extends Unit
      */
     public function testWriteException()
     {
-        $stream = $this->streamFactory();
-        $stream->detach();
-
-        $stream->write('Foo');
+        $this->expectException(\sebastianthiel\HTTP\Exception\StreamException::class);
+                $stream = $this->streamFactory();
+                $stream->detach();
+        
+                $stream->write('Foo');
     }
 
     /**
@@ -214,10 +220,11 @@ class StreamTest extends Unit
      */
     public function testReadException()
     {
-        $stream = $this->streamFactory();
-        $stream->detach();
-
-        $stream->read(1024);
+        $this->expectException(\sebastianthiel\HTTP\Exception\StreamException::class);
+                $stream = $this->streamFactory();
+                $stream->detach();
+        
+                $stream->read(1024);
     }
 
     /**
@@ -225,9 +232,10 @@ class StreamTest extends Unit
      */
     public function testReadLengthException()
     {
-        $stream = $this->streamFactory();
+        $this->expectException(\sebastianthiel\HTTP\Exception\StreamException::class);
 
-        $stream->read(-1);
+                $stream = $this->streamFactory();
+                $stream->read(-1);
     }
 
     /**
@@ -245,10 +253,12 @@ class StreamTest extends Unit
      */
     public function testGetContentsException()
     {
-        $stream = $this->streamFactory();
-        $stream->detach();
+        $this->expectException(\sebastianthiel\HTTP\Exception\StreamException::class);
 
-        $stream->getContents();
+                $stream = $this->streamFactory();
+                $stream->detach();
+        
+                $stream->getContents();
     }
 
     /**
